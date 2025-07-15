@@ -1,5 +1,5 @@
 import { Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
-import { LoginDto, RegisterDto } from '../dto/auth.dto';
+import { LoginDto, RegisterDto } from '@tuesday/shared';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { JwtService } from '@nestjs/jwt';

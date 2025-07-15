@@ -1,6 +1,6 @@
 import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { LoginDto, RegisterDto } from '../dto/auth.dto';
+import { LoginDtoImpl, RegisterDtoImpl } from '../dto/auth.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -16,7 +16,7 @@ export class AuthController {
      */
     @Post('register')
     @HttpCode(HttpStatus.CREATED)
-    async registerLocal(@Body() registerDto: RegisterDto){
+    async registerLocal(@Body() registerDto: RegisterDtoImpl){
         return await this.authService.registerLocal(registerDto)
     }
 
@@ -27,7 +27,7 @@ export class AuthController {
      */
     @Post('login')
     @HttpCode(HttpStatus.OK)
-    async loginLocal(@Body() loginDto: LoginDto) {
+    async loginLocal(@Body() loginDto: LoginDtoImpl) {
         return await this.authService.loginLocal(loginDto);
     }
 }

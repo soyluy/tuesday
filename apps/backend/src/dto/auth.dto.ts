@@ -1,6 +1,9 @@
+// All authentication-related DTOs
+
+import { LoginDto, RegisterDto } from '@tuesday/shared';
 import { IsEmail, IsNotEmpty, IsOptional, IsString, Length } from 'class-validator';
 
-export class RegisterDto {
+export class RegisterDtoImpl implements RegisterDto {
     @IsString()
     @Length(2, 100)
     @IsNotEmpty()
@@ -20,7 +23,7 @@ export class RegisterDto {
     fullName?: string;
 }
 
-export class LoginDto {
+export class LoginDtoImpl implements LoginDto {
     @IsString()
     @Length(2, 100)
     @IsNotEmpty()
