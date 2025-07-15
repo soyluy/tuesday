@@ -1,5 +1,5 @@
 import { Route } from '@angular/router';
-import { SignupPage } from '../signup/signup.page';
+import { SignupPage } from '../auth/signup.page';
 
 export const appRoutes: Route[] = [
     {

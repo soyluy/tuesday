@@ -16,7 +16,7 @@ export class AuthService {
         private mailService: MailService,
     ){}
 
-    async registerLocal(registerDto: RegisterDto): Promise<string> {
+    async registerLocal(registerDto: RegisterDto): Promise<Partial<RegisterDto>> {
         const registeringUser = {
             username: registerDto.username,
             email: registerDto.email,
@@ -27,7 +27,11 @@ export class AuthService {
         const createdUser = new this.userModel(registeringUser);
         createdUser.save();
         this.mailService.sendWelcomeEmail(createdUser.email, createdUser.fullName ?? createdUser.username);
-        return "OK"; // TODO: find a more appropriate return type
+        return {
+            username: createdUser.username,
+            email: createdUser.email,
+            fullName: createdUser.fullName,
+        }; 
     }
 
     async loginLocal(loginDto: LoginDto): Promise<string> {

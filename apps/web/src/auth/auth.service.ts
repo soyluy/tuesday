@@ -14,6 +14,11 @@ export class AuthService {
   }
 
   signup(formData: RegisterDto): Observable<RegisterDto>{
+    const response = this.http.post<RegisterDto>(`${this.apiUrl}/register`, formData);
+    response.subscribe({
+      next: (data) => console.log("Signup response:", data),
+      error: (error) => console.error("Signup error:", error)
+    });
     return this.http.post<RegisterDto>(`${this.apiUrl}/register`, formData);
   }
 
