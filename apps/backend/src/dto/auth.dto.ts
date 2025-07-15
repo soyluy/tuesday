@@ -19,3 +19,15 @@ export class RegisterDto {
     @IsString()
     fullName?: string;
 }
+
+export class LoginDto {
+    @IsString()
+    @Length(2, 100)
+    @IsNotEmpty()
+    username!: string;
+
+    @IsString()
+    @Length(6, 100)
+    @IsNotEmpty()
+    password!: string;
+}
