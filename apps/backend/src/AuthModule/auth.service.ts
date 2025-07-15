@@ -5,13 +5,15 @@ import { InjectModel } from '@nestjs/mongoose';
 import { JwtService } from '@nestjs/jwt';
 import * as argon2 from 'argon2';
 import { UserDocument } from '../schemas/user.schema';
+import { MailService } from '../MailModule/mail.service';
 
 @Injectable()
 export class AuthService {
 
     constructor(
         @InjectModel('User') private readonly userModel: Model<UserDocument>,
-        private jwtService: JwtService
+        private jwtService: JwtService,
+        private mailService: MailService,
     ){}
 
     async registerLocal(registerDto: RegisterDto): Promise<string> {
@@ -24,6 +26,7 @@ export class AuthService {
         
         const createdUser = new this.userModel(registeringUser);
         createdUser.save();
+        this.mailService.sendWelcomeEmail(createdUser.email, createdUser.fullName ?? createdUser.username);
         return "OK"; // TODO: find a more appropriate return type
     }
 

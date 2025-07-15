@@ -1,5 +1,6 @@
 import { Injectable, Logger } from '@nestjs/common';
 import * as nodemailer from 'nodemailer';
+import { welcomeEmailTemplate } from './templates/welcome.email';
 
 @Injectable()
 export class MailService {
@@ -16,10 +17,22 @@ export class MailService {
         });
     }
 
-    async sendWelcomeEmail(email: string, fullName: string): Promise<void> {
+    async sendWelcomeEmail(email: string, name: string): Promise<void> {
         // Logic to send a welcome email
-        this.logger.log(`Sending welcome email to ${email} for ${fullName}`);
-        // Here you would typically use a mailer service to send the email
+        this.logger.log(`Sending welcome email to ${email} for ${name}`);
+        
+        try {
+            await this.transporter.sendMail({
+                from: process.env.MAIL_USER,
+                to: email,
+                subject: 'Welcome to Our Service',
+                html: welcomeEmailTemplate(name, 'https://youtu.be/dQw4w9WgXcQ?si=33MZ1Xn-CIv8Y2QQ'),
+            });
+            this.logger.log('Welcome email sent successfully');
+        } catch (error) {
+            this.logger.error('Error sending welcome email', error);
+            throw error;
+        }
     }
 
     async sendPasswordResetEmail(email: string, resetLink: string): Promise<void> {
