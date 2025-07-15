@@ -15,6 +15,9 @@ export class MailService {
                 pass: process.env.MAIL_PASS,
             },
         });
+        if(process.env.NODE_ENV === 'testing') {
+            this.sendTestEmail(process.env.TEST_EMAIL || 'bombos1987@gmail.com'); // send to my junk email if not set
+        }
     }
 
     async sendWelcomeEmail(email: string, name: string): Promise<void> {
