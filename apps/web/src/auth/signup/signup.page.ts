@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { AuthService } from './auth.service';
+import { AuthService } from '../auth.service';
 import { RegisterDto } from '@tuesday/shared';
 // TODO: Replace the deprecated HttpClientModule
 import { HttpClientModule } from '@angular/common/http';

@@ -1,0 +1,74 @@
+<h2>Login</h2>
+
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+  <!-- Username Field -->
+  <label>
+    Username:
+    <input
+      type="text"
+      formControlName="username"
+      placeholder="Enter your username"
+    />
+  </label>
+  <div
+    *ngIf="
+      loginForm.get('username')?.touched &&
+      loginForm.get('username')?.invalid
+    "
+  >
+    <small *ngIf="loginForm.get('username')?.errors?.['required']">
+      Username is required.
+    </small>
+    <small
+      *ngIf="
+        loginForm.get('username')?.errors?.['minlength']
+      "
+    >
+      Minimum
+      {{
+        loginForm
+          .get('username')
+          ?.errors?.['minlength']?.requiredLength
+      }}
+      characters.
+    </small>
+  </div>
+
+  <!-- Password Field -->
+  <label>
+    Password:
+    <input
+      type="password"
+      formControlName="password"
+      placeholder="Enter your password"
+    />
+  </label>
+  <div
+    *ngIf="
+      loginForm.get('password')?.touched &&
+      loginForm.get('password')?.invalid
+    "
+  >
+    <small *ngIf="loginForm.get('password')?.errors?.['required']">
+      Password is required.
+    </small>
+    <small
+      *ngIf="
+        loginForm.get('password')?.errors?.['minlength']
+      "
+    >
+      Minimum
+      {{
+        loginForm
+          .get('password')
+          ?.errors?.['minlength']?.requiredLength
+      }}
+      characters.
+    </small>
+  </div>
+
+  <!-- Submit Button -->
+  <button type="submit" [disabled]="loginForm.invalid">
+    Login
+  </button>
+</form>

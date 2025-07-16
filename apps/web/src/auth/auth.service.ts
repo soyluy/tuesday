@@ -1,5 +1,5 @@
 import { inject, Injectable } from "@angular/core";
-import type { RegisterDto } from "@tuesday/shared";
+import type { LoginDto, RegisterDto } from "@tuesday/shared";
 import { localDevEnvironment } from "../environments/local.dev.environment";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
@@ -22,8 +22,7 @@ export class AuthService {
     return this.http.post<RegisterDto>(`${this.apiUrl}/register`, formData);
   }
 
-  login(credentials: { username: string; password: string }) {
-    // Implement the login logic here
-    console.log("Login credentials:", credentials);
+  login(credentials: LoginDto) {
+    return this.http.post<string>(`${this.apiUrl}/login`, credentials);
   }
 }

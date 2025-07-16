@@ -34,7 +34,7 @@ export class AuthService {
         }; 
     }
 
-    async loginLocal(loginDto: LoginDto): Promise<string> {
+    async loginLocal(loginDto: LoginDto): Promise<object> {
         const user = await this.userModel.findOne({ username: loginDto.username }).select('+passwordHash');
         if (!user) throw new NotFoundException('User not found');
 
@@ -44,6 +44,8 @@ export class AuthService {
         const isPasswordValid = await argon2.verify(user.passwordHash, loginDto.password);
         if (!isPasswordValid) throw new UnauthorizedException('Invalid password');
 
-        return this.jwtService.sign({ sub: user.userId, username: user.username });
+        return {
+            token: this.jwtService.sign({ sub: user.userId, username: user.username })
+        }
     }
 }
